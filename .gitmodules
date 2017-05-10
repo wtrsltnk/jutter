@@ -1,0 +1,9 @@
+[submodule "libs/nanovg"]
+	path = libs/nanovg
+	url = https://github.com/memononen/nanovg.git
+[submodule "libs/sdl2-mirror"]
+	path = libs/sdl2-mirror
+	url = https://bitbucket.org/wincppdeps/sdl2-mirror.git
+[submodule "libs/glm"]
+	path = libs/glm
+	url = https://github.com/g-truc/glm.git
