@@ -1,0 +1,9 @@
+*.user
+.vs
+data/*.db
+data/*.bin
+android/bin
+android/gen
+android/libs
+android/obj
+android/pass-perfect-release-key.keystore
