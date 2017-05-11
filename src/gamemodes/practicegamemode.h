@@ -25,7 +25,7 @@ public:
 
     void reset();
 
-    bool _isDragging;
+    bool _isPanning;
     glm::vec2 _prevDragPosition;
 };
 

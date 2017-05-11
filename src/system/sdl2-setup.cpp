@@ -104,6 +104,8 @@ int SDLProgram::Run(int argc, char* argv[])
 
             this->Render();
 
+            this->_input.ResetRelativeActionSources();
+
             // Swap front and back rendering buffers
             SDL_GL_SwapWindow(this->_window);
         }
@@ -131,6 +133,10 @@ void SDLProgram::handleInput(SDL_Event& event)
     if (event.type == SDL_MOUSEMOTION)
     {
         this->_input.OnMouseMove(double(event.motion.x), double(event.motion.y));
+    }
+    else if (event.type == SDL_MOUSEWHEEL)
+    {
+        this->_input.OnMouseWheel(double(event.wheel.x), double(event.wheel.y));
     }
     else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
     {

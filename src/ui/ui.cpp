@@ -85,7 +85,7 @@ UI::~UI()
 bool UI::init(const IInput* input)
 {
     this->_input = input;
-    this->_swipeHandle = this->_input->getAnalogActionHandle("throwing");
+    this->_swipeHandle = this->_input->getAnalogActionHandle("panning");
     this->_startSwipingHandle = this->_input->getDigitalActionHandle("start_throw");
 
 #ifdef __ANDROID__

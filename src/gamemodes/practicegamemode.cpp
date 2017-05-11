@@ -14,7 +14,7 @@
 #define HINT_TIMEOUT 10.0f
 
 PracticeGameMode::PracticeGameMode(class GameRules* gameRules)
-    : GameMode(gameRules), _back(nullptr), _isDragging(false)
+    : GameMode(gameRules), _back(nullptr), _isPanning(false)
 {
     this->reset();
     this->_randm.setSeed(6346);
@@ -61,13 +61,12 @@ bool PracticeGameMode::handleClick(Control* control)
 
 void PracticeGameMode::handleInput()
 {
-    auto pos = this->_gameRules->getSwipeData();
-    if (this->_isDragging)
+    auto pos = this->_gameRules->getPanningData();
+    if (this->_isPanning)
     {
-        if (!this->_gameRules->getSwipeState())
+        if (!this->_gameRules->getPanningState())
         {
-            // End dragging
-            this->_isDragging = false;
+            this->_isPanning = false;
         }
         else
         {
@@ -81,12 +80,19 @@ void PracticeGameMode::handleInput()
     }
     else
     {
-        if (this->_gameRules->getSwipeState())
+        if (this->_gameRules->getPanningState())
         {
-            // Start dragging
-            this->_isDragging = true;
+            this->_isPanning = true;
             this->_prevDragPosition = pos;
         }
+    }
+
+    auto zoom = this->_gameRules->getZoomingData();
+    if (glm::length(zoom) > 0.0f)
+    {
+        auto camPos = Entity::Manager()._camera->_position;
+        camPos.z += (zoom.y * 10.0f);
+        Entity::Manager()._camera->_position = camPos;
     }
 }
 

@@ -8,16 +8,9 @@
 
 extern float screenScale;
 
-enum class ThrowingStates
-{
-    Idle,
-    Throw,
-    Skip
-};
-
 class GameMode
 {
-    float gamerules_time;
+    float gameRulesTime;
 
 protected:
     class GameRules* _gameRules;
@@ -32,12 +25,7 @@ public:
     virtual bool handleClick(class Control* control) = 0;
     virtual GameModes gameMode() const = 0;
 
-    ThrowingStates _throwingState;
-    std::vector<glm::vec2> _throwingPos;
-    virtual void handleInput();
     virtual bool update(float elapsed);
-    virtual void handleSwipe();
-    virtual void handleTap(const glm::vec2& pos);
 
     void addToUI(class Control* control);
 };

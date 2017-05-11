@@ -77,6 +77,7 @@ class Input : public IInput
     DigitalActionHandle _digitalMapping_OnKeyAction[int(KeyboardKeys::Count)];
     DigitalActionHandle _digitalMapping_OnMouseAction[int(MouseButtons::Count)];
     AnalogActionHandle _analogMapping_OnMouseMove;
+    AnalogActionHandle _analogMapping_OnMouseWheel;
 
 public:
     Input();
@@ -85,6 +86,9 @@ public:
     virtual void OnKeyAction(KeyboardKeys key, ActionStates state);
     virtual void OnMouseAction(MouseButtons button, ActionStates state);
     virtual void OnMouseMove(double x, double y);
+    virtual void OnMouseWheel(double x, double y);
+
+    virtual void ResetRelativeActionSources();
 
     virtual DigitalActionHandle getDigitalActionHandle(const std::string& name) const;
     virtual DigitalActionState getDigitalActionData(DigitalActionHandle action) const;

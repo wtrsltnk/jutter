@@ -15,8 +15,8 @@ struct DigitalActionState
 
 enum class AnalogActionSourceTypes
 {
-    AbsoluteMouse,
-    RelativeMouse
+    Absolute,
+    Relative
 };
 
 struct AnalogActionState
@@ -34,6 +34,8 @@ class IInput
 {
 public:
     virtual ~IInput();
+
+    virtual void ResetRelativeActionSources() = 0;
 
     virtual DigitalActionHandle getDigitalActionHandle(const std::string& name) const = 0;
     virtual DigitalActionState getDigitalActionData(DigitalActionHandle action) const = 0;

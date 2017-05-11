@@ -28,7 +28,8 @@ void GameRules::init(const IInput* input, int width, int height)
 {
     UI::Manager().init(input);
     this->_input = input;
-    this->_swipeHandle = this->_input->getAnalogActionHandle("throwing");
+    this->_zoomingHandle = this->_input->getAnalogActionHandle("zooming");
+    this->_panningHandle = this->_input->getAnalogActionHandle("panning");
     this->_startSwipingHandle = this->_input->getDigitalActionHandle("start_throw");
 
     this->_mainMenuMode.setup(width, height);
@@ -87,15 +88,23 @@ bool GameRules::update(float elapsed)
     return true;
 }
 
-const glm::vec2 GameRules::getSwipeData()
+const glm::vec2 GameRules::getZoomingData()
 {
     return glm::vec2(
-                this->_input->getAnalogActionData(this->_swipeHandle).x,
-                this->_input->getAnalogActionData(this->_swipeHandle).y
+                this->_input->getAnalogActionData(this->_zoomingHandle).x,
+                this->_input->getAnalogActionData(this->_zoomingHandle).y
                 );
 }
 
-bool GameRules::getSwipeState()
+const glm::vec2 GameRules::getPanningData()
+{
+    return glm::vec2(
+                this->_input->getAnalogActionData(this->_panningHandle).x,
+                this->_input->getAnalogActionData(this->_panningHandle).y
+                );
+}
+
+bool GameRules::getPanningState()
 {
     return this->_input->getDigitalActionData(this->_startSwipingHandle).state;
 }

@@ -17,7 +17,8 @@
 class GameRules
 {
     const IInput* _input;
-    AnalogActionHandle _swipeHandle;
+    AnalogActionHandle _zoomingHandle;
+    AnalogActionHandle _panningHandle;
     DigitalActionHandle _startSwipingHandle;
 
     MainMenuMode _mainMenuMode;
@@ -36,8 +37,9 @@ public:
     void resize(int width, int height);
     bool update(float elapsed);
 
-    const glm::vec2 getSwipeData();
-    bool getSwipeState();
+    const glm::vec2 getZoomingData();
+    const glm::vec2 getPanningData();
+    bool getPanningState();
 
     GameModes gameMode() const;
 
