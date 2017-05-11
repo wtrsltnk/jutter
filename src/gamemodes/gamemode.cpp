@@ -47,8 +47,7 @@ float averageLength(const std::vector<glm::vec2>& pos)
 
 void GameMode::handleInput()
 {
-    auto swipe = this->_gameRules->getSwipeData();
-    glm::vec2 pos(swipe.x, swipe.y);
+    auto pos = this->_gameRules->getSwipeData();
 
     while (gamerules_time >= (1.0f / 30.0f))
     {

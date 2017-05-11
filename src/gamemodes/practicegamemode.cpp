@@ -14,7 +14,7 @@
 #define HINT_TIMEOUT 10.0f
 
 PracticeGameMode::PracticeGameMode(class GameRules* gameRules)
-    : GameMode(gameRules), _back(nullptr)
+    : GameMode(gameRules), _back(nullptr), _isDragging(false)
 {
     this->reset();
     this->_randm.setSeed(6346);
@@ -59,6 +59,37 @@ bool PracticeGameMode::handleClick(Control* control)
     return true;
 }
 
+void PracticeGameMode::handleInput()
+{
+    auto pos = this->_gameRules->getSwipeData();
+    if (this->_isDragging)
+    {
+        if (!this->_gameRules->getSwipeState())
+        {
+            // End dragging
+            this->_isDragging = false;
+        }
+        else
+        {
+            auto diff = pos - this->_prevDragPosition;
+            auto camPos = Entity::Manager()._camera->_position;
+            camPos.x += diff.x;
+            camPos.y -= diff.y;
+            Entity::Manager()._camera->_position = camPos;
+            this->_prevDragPosition = pos;
+        }
+    }
+    else
+    {
+        if (this->_gameRules->getSwipeState())
+        {
+            // Start dragging
+            this->_isDragging = true;
+            this->_prevDragPosition = pos;
+        }
+    }
+}
+
 bool PracticeGameMode::update(float elapsed)
 {
     if (!GameMode::update(elapsed)) return false;
@@ -66,11 +97,6 @@ bool PracticeGameMode::update(float elapsed)
     this->handleInput();
 
     return true;
-}
-
-void PracticeGameMode::handleSwipe()
-{
-    GameMode::handleSwipe();
 }
 
 void PracticeGameMode::reset()

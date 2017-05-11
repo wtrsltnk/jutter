@@ -3,6 +3,7 @@
 
 #include "gamemode.h"
 #include "../common/randm.h"
+#include <glm/glm.hpp>
 
 class PracticeGameMode : public GameMode
 {
@@ -18,11 +19,14 @@ public:
     virtual void onExitFrom();
     virtual void onSwitchTo();
     virtual bool handleClick(class Control* control);
+    virtual void handleInput();
     virtual GameModes gameMode() const { return GameModes::Practice; }
     virtual bool update(float elapsed);
-    virtual void handleSwipe();
 
     void reset();
+
+    bool _isDragging;
+    glm::vec2 _prevDragPosition;
 };
 
 #endif // PRACTICEGAMEMODE_H
