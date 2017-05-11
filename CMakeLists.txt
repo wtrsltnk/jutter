@@ -140,8 +140,8 @@ add_executable(jutter
 	)
 
 target_include_directories(jutter
-    PRIVATE "libs/sdl2-mirror/include"
-    PRIVATE "libs/glm"
+    PRIVATE "${CMAKE_SOURCE_DIR}/libs/sdl2-mirror/include"
+    PRIVATE "${CMAKE_SOURCE_DIR}/libs/glm"
     PRIVATE "include"
     PRIVATE "${CMAKE_SOURCE_DIR}/libs/nanovg/src"
 	)

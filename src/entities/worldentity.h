@@ -15,8 +15,10 @@ public:
 
     virtual int getType();
 
+    static glm::vec3 RandomPointOnBeach();
+
 public:
-    static int Type;
+    static const int Type;
 };
 
 #endif // _WORLDENTITY_H_

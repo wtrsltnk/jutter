@@ -27,7 +27,7 @@ public:
     void setViewport(const glm::vec4& viewport);
 
 public:
-    static int Type;
+    static const int Type;
 };
 
 #endif // _CAMERAENTITY_H_

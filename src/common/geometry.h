@@ -4,12 +4,23 @@
 #include "../system/platform-opengl.h"
 #include <glm/glm.hpp>
 #include <vector>
+#include <functional>
 
 typedef struct sVertex
 {
     float pos[3];
     float nor[3];
     float col[3];
+
+    sVertex(const glm::vec3& pos, const glm::vec3& nor, const glm::vec3& col)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            this->pos[i] = pos[i];
+            this->nor[i] = nor[i];
+            this->col[i] = col[i];
+        }
+    }
 
     sVertex& operator = (const sVertex& orig)
     {
@@ -69,7 +80,7 @@ public:
     static Geometry* createBox(const glm::vec3& size, const glm::vec3& offset = glm::vec3());
     static Geometry* createPlane(const glm::vec3& size, const glm::vec3& offset);
     static Geometry* createQuad(const glm::vec2& size, GLuint shader);
-    static Geometry* createTerrain();
+    static Geometry* createTerrain(int tileCount, int tileStep, std::function<glm::vec3 (int x, int y)> genposition, std::function<glm::vec3 (int x, int y)> gencolor);
 };
 
 #endif // _GEOMETRY_H_

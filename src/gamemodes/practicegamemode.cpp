@@ -47,6 +47,7 @@ void PracticeGameMode::onExitFrom()
 void PracticeGameMode::onSwitchTo()
 {
     Entity::Manager().moveToTopView();
+    auto randomPos = WorldEntity::RandomPointOnBeach();
 }
 
 bool PracticeGameMode::handleClick(Control* control)

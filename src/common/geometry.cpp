@@ -338,134 +338,30 @@ Geometry* Geometry::createCapsule(float radius, float height, const glm::vec3& o
     return result;
 }
 
-const int offsetx = 100;
-const int offsety = -50;
-const float layer_forest = 9.0f;
-const float layer1 = 25.0f;
-const float layer2 = 180.0f;
-
-float noise(int x, int y)
+Geometry* Geometry::createTerrain(int tileCount, int tileStep,
+                                  std::function<glm::vec3 (int x, int y)> genposition,
+                                  std::function<glm::vec3 (int x, int y)> gencolor)
 {
-    float xx = float(x + offsetx);
-    float yy = float(y + offsety);
-    return
-            (
-                ((stb_perlin_noise3(xx / layer1, yy / layer1, 0) + 1.0f) / 2.0f) +
-                ((stb_perlin_noise3(xx / layer2, yy / layer2, 0) + 1.0f) / 2.0f)
-            ) / 2.0f;
-}
-
-float noise_forest(int x, int y)
-{
-    return (stb_perlin_noise3(float(x) / layer_forest, float(y) / layer_forest, 0) + 1.0f) / 2.0f;
-}
-
-float distance(int x, int y, int max)
-{
-    return glm::length(glm::vec2(float(x), float(y))) / (float(max) / 2.0f);
-}
-
-float falloff(int x, int y, int max)
-{
-    auto d = distance(x, y, max);
-    return glm::min(1.0f, 1.6f - glm::sqrt(d * d));
-}
-
-#define GEN_VERTEX(x, y) glm::vec3(float(x) * 8.0f, float(y) * 8.0f, 0.0f)
-#define GEN_COLOR(x, y, t) noise(x, y) * falloff(x, y, t), noise_forest(x, y), distance(x, y, t)
-
-void fix_color(float* f_color)
-{
-    if (f_color[0] < 0.6f)
-    {
-        f_color[0] = 163.0f/255.0f;
-        f_color[1] = 204.0f/255.0f;
-        f_color[2] = 255.0f/255.0f;
-    }
-    else if (f_color[0] < 0.64f)
-    {
-        f_color[0] = 250.0f/255.0f;
-        f_color[1] = 242.0f/255.0f;
-        f_color[2] = 199.0f/255.0f;
-    }
-    else if (f_color[0] < 0.67f)
-    {
-        f_color[0] = 240.0f/255.0f;
-        f_color[1] = 237.0f/255.0f;
-        f_color[2] = 229.0f/255.0f;
-    }
-    else
-    {
-        if (f_color[1] > 0.5f)
-        {
-            f_color[0] = 240.0f/255.0f;
-            f_color[1] = 237.0f/255.0f;
-            f_color[2] = 229.0f/255.0f;
-        }
-        else
-        {
-            f_color[0] = 210.0f/255.0f;
-            f_color[1] = 228.0f/255.0f;
-            f_color[2] = 200.0f/255.0f;
-        }
-    }
-}
-
-Geometry* Geometry::createTerrain()
-{
-    int tileCount = 256;
-    float multiplier = 150.0f;
-    float halfmultiplier = multiplier / 2.0f;
-
     std::vector<tVertex> heightMap;
-    const float tileStep = 1;
     for (int y = -(tileCount / 2); y < (tileCount / 2); y += tileStep)
     {
         for (int x = -(tileCount / 2); x < (tileCount / 2); x+= tileStep)
         {
-            auto a = GEN_VERTEX(x, y);
-            auto b = GEN_VERTEX(x + tileStep, y);
-            auto c = GEN_VERTEX(x, y + tileStep);
-            auto d = GEN_VERTEX(x + tileStep, y + tileStep);
+            auto a = genposition(x, y);
+            auto b = genposition(x + tileStep, y);
+            auto c = genposition(x, y + tileStep);
+            auto d = genposition(x + tileStep, y + tileStep);
 
-            auto n = glm::normalize(glm::cross(b-a, c-a));
+            auto na = glm::normalize(glm::cross(b-a, c-a));
+            auto nb = glm::normalize(glm::cross(d-b, c-b));
 
-            tVertex v1 = {
-                { a.x, a.y, a.z },
-                { n.x, n.y, n.z },
-                { GEN_COLOR(x, y, tileCount) }
-            };
-//            fix_color(v1.col);
-            tVertex v2 = {
-                { b.x, b.y, b.z },
-                { n.x, n.y, n.z },
-                { GEN_COLOR(x + tileStep, y, tileCount) }
-            };
-//            fix_color(v2.col);
-            tVertex v3 = {
-                { c.x, c.y, c.z },
-                { n.x, n.y, n.z },
-                { GEN_COLOR(x, y + tileStep, tileCount) }
-            };
-//            fix_color(v3.col);
-            tVertex v4 = {
-                { d.x, d.y, d.z },
-                { n.x, n.y, n.z },
-                { GEN_COLOR(x + tileStep, y + tileStep, tileCount) }
-            };
-//            fix_color(v4.col);
+            heightMap.push_back(tVertex(a, na, gencolor(x, y)));
+            heightMap.push_back(tVertex(b, na, gencolor(x + tileStep, y)));
+            heightMap.push_back(tVertex(c, na, gencolor(x, y + tileStep)));
 
-            heightMap.push_back(v1);
-            heightMap.push_back(v2);
-            heightMap.push_back(v3);
-
-            n = glm::normalize(glm::cross(d-b, c-b));
-            for (int i = 0; i < 3; i++)
-                v2.nor[i] = v3.nor[i] = v4.nor[i] = n[i];
-
-            heightMap.push_back(v2);
-            heightMap.push_back(v4);
-            heightMap.push_back(v3);
+            heightMap.push_back(tVertex(b, nb, gencolor(x + tileStep, y)));
+            heightMap.push_back(tVertex(d, na, gencolor(x + tileStep, y + tileStep)));
+            heightMap.push_back(tVertex(c, nb, gencolor(x, y + tileStep)));
         }
     }
 

@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+const int CameraEntity::Type = 5;
+
 glm::mat4 CameraEntity::getCameraMatrix() const
 {
     return this->getMatrix();
@@ -33,8 +35,6 @@ int CameraEntity::getType()
 {
     return CameraEntity::Type;
 }
-
-int CameraEntity::Type = 5;
 
 const glm::vec4& CameraEntity::viewport() const
 {
