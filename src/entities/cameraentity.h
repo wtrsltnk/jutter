@@ -20,6 +20,7 @@ public:
     void changeView();
     void moveToTopView();
     void moveToDefaultView();
+    void zoom(float amount);
 
     virtual int getType();
 

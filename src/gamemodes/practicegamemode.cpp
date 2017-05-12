@@ -29,6 +29,16 @@ void PracticeGameMode::setup(int width, int height)
     this->_back->setText("back");
     this->addToUI(this->_back);
 
+    this->_zoomIncrease = new Button("zoomIncrease");
+    this->_zoomIncrease->setIcon(eFontAwesomeIcons::FA_PLUS_CIRCLE);
+    this->_zoomIncrease->setText("zoom-in");
+    this->addToUI(this->_zoomIncrease);
+
+    this->_zoomDecrease = new Button("zoomDecrease");
+    this->_zoomDecrease->setIcon(eFontAwesomeIcons::FA_MINUS_CIRCLE);
+    this->_zoomDecrease->setText("zoom-out");
+    this->addToUI(this->_zoomDecrease);
+
     this->resize(width, height);
 }
 
@@ -39,6 +49,8 @@ void PracticeGameMode::resize(int width, int height)
     if (this->_back == nullptr) return;
 
     this->_back->setPosition(glm::vec2(OFFSET_ONE_BUTTON, height - OFFSET_ONE_BUTTON));
+    this->_zoomIncrease->setPosition(glm::vec2(width - OFFSET_ONE_BUTTON, height - OFFSET_ONE_BUTTON));
+    this->_zoomDecrease->setPosition(glm::vec2(width - OFFSET_ONE_BUTTON, height - OFFSET_TWO_BUTTONS));
 }
 
 void PracticeGameMode::onExitFrom()
@@ -55,6 +67,14 @@ bool PracticeGameMode::handleClick(Control* control)
     if (control == this->_back)
     {
         this->_gameRules->changeGameMode(GameModes::MainMenu);
+    }
+    else if (control == this->_zoomIncrease)
+    {
+        Entity::Manager()._camera->zoom(50.0f);
+    }
+    else if (control == this->_zoomDecrease)
+    {
+        Entity::Manager()._camera->zoom(-50.0f);
     }
 
     return true;
@@ -91,9 +111,7 @@ void PracticeGameMode::handleInput()
     auto zoom = this->_gameRules->getZoomingData();
     if (glm::length(zoom) > 0.0f)
     {
-        auto camPos = Entity::Manager()._camera->_position;
-        camPos.z += (zoom.y * 10.0f);
-        Entity::Manager()._camera->_position = camPos;
+        Entity::Manager()._camera->zoom(zoom.y * 10.0f);
     }
 }
 

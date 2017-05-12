@@ -31,6 +31,11 @@ void CameraEntity::moveToTopView()
 void CameraEntity::moveToDefaultView()
 { }
 
+void CameraEntity::zoom(float amount)
+{
+    this->_position.z += amount;
+}
+
 int CameraEntity::getType()
 {
     return CameraEntity::Type;

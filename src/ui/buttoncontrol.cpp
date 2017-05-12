@@ -60,13 +60,13 @@ void Button::render(NVGcontext* vg, float scale)
     if (this->_scale != 1.0f)
     {
         nvgBeginPath(vg);
-        nvgRect(vg, -(this->size().x / 2.0f) + 4.0f, -(this->size().y / 2.0f) + 4.0f, this->size().x - 2.0f, this->size().y - 2.0f);
+        nvgRoundedRect(vg, -(this->size().x / 2.0f) + 4.0f, -(this->size().y / 2.0f) + 4.0f, this->size().x - 2.0f, this->size().y - 2.0f, this->size().x / 2.0f);
         nvgFillColor(vg, Colors::ToNvgColor(this->borderColor()));
         nvgFill(vg);
     }
 
     nvgBeginPath(vg);
-    nvgRect(vg, -(this->size().x / 2.0f), -(this->size().y / 2.0f), this->size().x, this->size().y);
+    nvgRoundedRect(vg, -(this->size().x / 2.0f), -(this->size().y / 2.0f), this->size().x, this->size().y, this->size().x / 2.0f);
     nvgFillColor(vg, Colors::ToNvgColor(this->color()));
     nvgFill(vg);
 

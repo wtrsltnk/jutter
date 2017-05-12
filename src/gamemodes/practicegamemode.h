@@ -7,6 +7,8 @@
 
 class PracticeGameMode : public GameMode
 {
+    class Button* _zoomIncrease;
+    class Button* _zoomDecrease;
     class Button* _back;
     RandomNumberGenerator _randm;
     int _width, _height;
