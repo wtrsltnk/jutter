@@ -1,11 +1,13 @@
 #include "entity.h"
+#include "../common/texture.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 
 Entity::Entity()
     : _deleted(false), _scale(glm::vec3(1.0f)),
-      _geometryProperty(nullptr), _moveTo(false)
+      _geometryProperty(nullptr), _texture(nullptr),
+      _moveTo(false)
 { }
 
 Entity::~Entity()
@@ -60,6 +62,8 @@ void Entity::update(float elapsed)
 
 void Entity::render(const glm::mat4& proj, const glm::mat4& view)
 {
+    if (this->_texture != nullptr) this->_texture->bind();
+
     if (this->geometryProperty() != nullptr)
     {
         this->geometryProperty()->render(proj, view, this->getMatrix());

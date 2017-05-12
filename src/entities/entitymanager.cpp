@@ -100,6 +100,4 @@ void EntityManager::moveToDefaultView()
 void EntityManager::reset()
 {
     Entity::Manager()._entities.clear();
-
-    Entity::Manager()._entities.insert(new WorldEntity());
 }

@@ -20,6 +20,8 @@ set(SRC_ENTITY
     src/entities/entitymanager.h
     src/entities/cameraentity.cpp
     src/entities/cameraentity.h
+    src/entities/strandeditementity.cpp
+    src/entities/strandeditementity.h
     src/entities/worldentity.cpp
     src/entities/worldentity.h
     )
@@ -110,6 +112,8 @@ set(SHADERS
     data/shaders/gl3/effect.frag
     data/shaders/gl3/particles.vert
     data/shaders/gl3/particles.frag
+    data/shaders/gl3/strandeditem.vert
+    data/shaders/gl3/strandeditem.frag
     data/shaders/gles3/geometry.vert
     data/shaders/gles3/geometry.frag
     data/shaders/gles3/effect.vert

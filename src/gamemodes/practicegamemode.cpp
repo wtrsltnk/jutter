@@ -6,12 +6,14 @@
 #include "../ui/hintcontrol.h"
 #include "../entities/entitymanager.h"
 #include "../entities/worldentity.h"
+#include "../entities/strandeditementity.h"
 #include "../gamerules.h"
 #include "../common/particles.h"
 #include "../common/timer.h"
-#include <sstream>
 
-#define HINT_TIMEOUT 10.0f
+#include <sstream>
+#include <iostream>
+#include <glm/gtx/string_cast.hpp>
 
 PracticeGameMode::PracticeGameMode(class GameRules* gameRules)
     : GameMode(gameRules), _back(nullptr), _isPanning(false)
@@ -60,6 +62,13 @@ void PracticeGameMode::onSwitchTo()
 {
     Entity::Manager().moveToTopView();
     auto randomPos = WorldEntity::RandomPointOnBeach();
+
+    auto ent = new StrandedItemEntity();
+    ent->_position = randomPos;
+    ent->_position.z -= 2.0f;
+    Entity::Manager()._entities.insert(ent);
+
+    Entity::Manager()._entities.insert(new WorldEntity());
 }
 
 bool PracticeGameMode::handleClick(Control* control)

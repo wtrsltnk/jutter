@@ -1,4 +1,5 @@
 #include "worldentity.h"
+#include "../common/geometry.h"
 #include "../common/stb_perlin.h"
 
 #include <random>

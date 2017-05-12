@@ -46,6 +46,7 @@ public:
 
     void attachGeometryProperty(Geometry* renderable);
     Geometry* geometryProperty();
+    class Texture* _texture;
 
 public:
     static int Type;

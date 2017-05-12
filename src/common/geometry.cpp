@@ -188,10 +188,10 @@ Geometry* Geometry::createQuad(const glm::vec2& size, GLuint shader)
 {
     std::vector<tVertex> vertices = {
         // Front Face
-        { {   0.0f,    0.0f,  0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 0.0f, 0.0f } }, // Bottom Left Of The Texture and Quad
-        { { size.x,    0.0f,  0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 0.0f, 0.0f } }, // Bottom Right Of The Texture and Quad
-        { { size.x,  size.y,  0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 1.0f, 0.0f } }, // Top Right Of The Texture and Quad
-        { {   0.0f,  size.y,  0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 1.0f, 0.0f } }, // Top Left Of The Texture and Quad
+        { {   0.0f,    0.0f, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 0.0f, 0.0f } }, // Bottom Left Of The Texture and Quad
+        { { size.x,    0.0f, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 0.0f, 0.0f } }, // Bottom Right Of The Texture and Quad
+        { { size.x,  size.y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 1.0f, 0.0f } }, // Top Right Of The Texture and Quad
+        { {   0.0f,  size.y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 1.0f, 0.0f } }, // Top Left Of The Texture and Quad
     };
 
     std::vector<tFace> faces = {
@@ -386,7 +386,7 @@ static GLint _projectionUniform = 0;
 
 GLint Geometry::projectionUniform(GLuint shader)
 {
-    if (_projectionUniform == 0)
+//    if (_projectionUniform == 0)
         _projectionUniform = glGetUniformLocation(shader, "u_p");
 
     return _projectionUniform;
@@ -396,7 +396,7 @@ static GLint _viewUniform = 0;
 
 GLint Geometry::viewUniform(GLuint shader)
 {
-    if (_viewUniform == 0)
+//    if (_viewUniform == 0)
         _viewUniform = glGetUniformLocation(shader, "u_v");
 
     return _viewUniform;
@@ -406,7 +406,7 @@ static GLint _modeluniform = 0;
 
 GLint Geometry::modelUniform(GLuint shader)
 {
-    if (_modeluniform == 0)
+//    if (_modeluniform == 0)
         _modeluniform = glGetUniformLocation(shader, "u_m");
 
     return _modeluniform;

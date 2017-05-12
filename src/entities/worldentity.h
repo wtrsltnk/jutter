@@ -2,13 +2,12 @@
 #define _WORLDENTITY_H_
 
 #include "entity.h"
-#include "../common/geometry.h"
 
 #include <set>
 
 class WorldEntity : public Entity
 {
-    static Geometry* _worldGeom;
+    static class Geometry* _worldGeom;
 public:
     WorldEntity();
     virtual ~WorldEntity();
