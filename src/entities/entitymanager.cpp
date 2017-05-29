@@ -1,20 +1,15 @@
 #include "entitymanager.h"
 #include "worldentity.h"
 #include "../common/geometry.h"
-#include "../common/randm.h"
 #include "../common/particles.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <sstream>
 
-static RandomNumberGenerator _randm;
-
 EntityManager* EntityManager::_instance = nullptr;
 
 EntityManager::EntityManager() : _camera(new CameraEntity())
-{
-    _randm.setSeed(7839);
-}
+{ }
 
 EntityManager& Entity::Manager()
 {

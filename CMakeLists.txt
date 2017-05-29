@@ -79,8 +79,6 @@ set(SRC_COMMON
     src/common/shader.h
     src/common/texture.cpp
     src/common/texture.h
-    src/common/randm.cpp
-    src/common/randm.h
     src/common/log.cpp
     src/common/log.h
     src/common/fileio.cpp

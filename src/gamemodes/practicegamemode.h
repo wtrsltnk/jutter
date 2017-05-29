@@ -2,7 +2,6 @@
 #define PRACTICEGAMEMODE_H
 
 #include "gamemode.h"
-#include "../common/randm.h"
 #include <glm/glm.hpp>
 
 class PracticeGameMode : public GameMode
@@ -10,7 +9,6 @@ class PracticeGameMode : public GameMode
     class Button* _zoomIncrease;
     class Button* _zoomDecrease;
     class Button* _back;
-    RandomNumberGenerator _randm;
     int _width, _height;
 public:
     PracticeGameMode(class GameRules* gameRules);

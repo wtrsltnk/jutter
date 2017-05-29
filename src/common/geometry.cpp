@@ -209,6 +209,33 @@ Geometry* Geometry::createQuad(const glm::vec2& size, GLuint shader)
     return result;
 }
 
+Geometry* Geometry::createQuad2(const glm::vec2& size, GLuint shader)
+{
+    float x = size.x / 2.0f, y = size.y / 2.0f;
+
+    std::vector<tVertex> vertices = {
+        // Front Face
+        { { -x, -y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 0.0f, 0.0f } }, // Bottom Left Of The Texture and Quad
+        { {  x, -y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 0.0f, 0.0f } }, // Bottom Right Of The Texture and Quad
+        { {  x,  y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 1.0f, 1.0f, 0.0f } }, // Top Right Of The Texture and Quad
+        { { -x,  y, 0.0f }, {  0.0f,  0.0f,  1.0f}, { 0.0f, 1.0f, 0.0f } }, // Top Left Of The Texture and Quad
+    };
+
+    std::vector<tFace> faces = {
+        { 0, 4 }
+    };
+
+    auto result = new Geometry();
+
+    result->setShader(shader);
+    result->init();
+    result->setMode(GL_TRIANGLE_FAN);
+    result->setVertices(vertices);
+    result->setFaces(faces);
+
+    return result;
+}
+
 const static float _pi = 3.141592653589793238462643383279502884f;
 
 Geometry* Geometry::createSphere(float radius, const glm::vec3& offset)

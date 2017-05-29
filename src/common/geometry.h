@@ -80,6 +80,7 @@ public:
     static Geometry* createBox(const glm::vec3& size, const glm::vec3& offset = glm::vec3());
     static Geometry* createPlane(const glm::vec3& size, const glm::vec3& offset);
     static Geometry* createQuad(const glm::vec2& size, GLuint shader);
+    static Geometry* createQuad2(const glm::vec2& size, GLuint shader);
     static Geometry* createTerrain(int tileCount, int tileStep, std::function<glm::vec3 (int x, int y)> genposition, std::function<glm::vec3 (int x, int y)> gencolor);
 };
 

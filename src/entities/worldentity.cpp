@@ -69,7 +69,7 @@ std::uniform_int_distribution<int> distribution(0, 256);
 bool IsPointOnBeach(int x, int y)
 {
     auto val = noise(x, y) * falloff(x, y, 256);
-    return (val >= 0.6f && val <= 0.64f);
+    return (val >= 0.6f && val < 0.64f);
 }
 
 glm::vec3 WorldEntity::RandomPointOnBeach()
@@ -77,11 +77,11 @@ glm::vec3 WorldEntity::RandomPointOnBeach()
     int x = distribution(generator);
     int y = distribution(generator);
 
-    while (!IsPointOnBeach(x, y))
+    while (!IsPointOnBeach(x - 128, y - 128))
     {
         x = distribution(generator);
         y = distribution(generator);
     }
 
-    return glm::vec3(float(x), float(y), 0.0f);
+    return glm::vec3(float(x - 128) * 8.0f, float(y - 128) * 8.0f, 0.0f);
 }

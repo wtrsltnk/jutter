@@ -13,7 +13,7 @@ StrandedItemEntity::StrandedItemEntity()
     }
     if (StrandedItemEntity::_worldGeom == nullptr)
     {
-        StrandedItemEntity::_worldGeom = Geometry::createQuad(glm::vec3(50.0f, 50.0f, 0.0f), StrandedItemEntity::_shader);
+        StrandedItemEntity::_worldGeom = Geometry::createQuad2(glm::vec3(50.0f, 50.0f, 0.0f), StrandedItemEntity::_shader);
     }
     this->attachGeometryProperty(StrandedItemEntity::_worldGeom);
 }

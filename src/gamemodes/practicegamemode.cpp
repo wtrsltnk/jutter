@@ -19,7 +19,6 @@ PracticeGameMode::PracticeGameMode(class GameRules* gameRules)
     : GameMode(gameRules), _back(nullptr), _isPanning(false)
 {
     this->reset();
-    this->_randm.setSeed(6346);
 }
 
 PracticeGameMode::~PracticeGameMode() { }
