@@ -66,8 +66,6 @@ void PracticeGameMode::onSwitchTo()
     ent->_position = randomPos;
     ent->_position.z -= 2.0f;
     Entity::Manager()._entities.insert(ent);
-
-    Entity::Manager()._entities.insert(new WorldEntity());
 }
 
 bool PracticeGameMode::handleClick(Control* control)
@@ -101,8 +99,8 @@ void PracticeGameMode::handleInput()
         {
             auto diff = pos - this->_prevDragPosition;
             auto camPos = Entity::Manager()._camera->_position;
-            camPos.x += diff.x;
-            camPos.y -= diff.y;
+            camPos.x += diff.x * (-camPos.z / 1200.0f);
+            camPos.y -= diff.y * (-camPos.z / 1200.0f);
             Entity::Manager()._camera->_position = camPos;
             this->_prevDragPosition = pos;
         }
@@ -119,7 +117,8 @@ void PracticeGameMode::handleInput()
     auto zoom = this->_gameRules->getZoomingData();
     if (glm::length(zoom) > 0.0f)
     {
-        Entity::Manager()._camera->zoom(zoom.y * 10.0f);
+        auto z = Entity::Manager()._camera->getPosition().z;
+        Entity::Manager()._camera->zoom(zoom.y * (40.0f * (z / 1200.0f)));
     }
 }
 

@@ -1,6 +1,7 @@
 #include "gamerules.h"
 #include "entities/entitymanager.h"
 #include "entities/entity.h"
+#include "entities/worldentity.h"
 #include "system/input.h"
 #include "ui/ui.h"
 #include "ui/fadeoutlabelcontrol.h"
@@ -37,6 +38,8 @@ void GameRules::init(const IInput* input, int width, int height)
     this->_practiceMode.setup(width, height);
 
     Entity::Manager().moveToDefaultView();
+
+    Entity::Manager()._entities.insert(new WorldEntity());
 
     this->changeGameMode(this->_gameMode);
 }
